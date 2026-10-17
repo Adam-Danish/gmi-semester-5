@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">GMI Prospect</string>
+    <string name="courses_title">Programmes at GMI</string>
+    <string name="eligibility_title">Entry requirements</string>
+    <string name="entry_requirements_button">View Entry Requirements</string>
+    <string name="about_title">About &amp; Contact</string>
+    <string name="diploma_button">Diploma</string>
+    <string name="gapp_button">GAPP</string>
+    <string name="gufp_button">GUFP</string>
+    <string name="view_entry_requirements">View entry requirements</string>
+    <string name="view_gmi_source">View programme on GMI website</string>
+    <string name="view_entry_source">View current requirements on GMI website</string>
+    <string name="apply_at_gmi">Apply on GMI website</string>
+    <string name="visit_website">Visit GMI website</string>
+    <string name="email_gmi">Email GMI</string>
+    <string name="call_gmi">Call GMI</string>
+    <string name="no_app_to_open">No app is available to open this link.</string>
+    <string name="diploma_list">Diploma programmes listed by GMI\n\nElectrical Engineering\n• Diploma of Mechatronics Engineering Technology\n• Diploma of Engineering Technology (Instrumentation &amp; Control)\n• Diploma of Electronics Engineering Technology (Computer)\n• Autotronics Engineering Technology\n• Diploma in Engineering Technology (Sustainable Energy &amp; Power Distribution)\n\nMechanical Engineering\n• Diploma in Engineering Technology (Industrial Design)\n• Diploma in Industrial Quality Engineering Technology\n• Diploma in Innovative Product Design Engineering Technology\n• Diploma of Mechanical Engineering Technology (CNC Precision)\n• Diploma of Mechanical Engineering Technology (Manufacturing)\n\nComputer and Information\n• Diploma in Software Engineering\n• Diploma in Creative Multimedia\n• Diploma in Cyber Security Technology\n\nAvailability can change by intake. Check the linked GMI catalogue before applying.</string>
+    <string name="gapp_listing">German University Preparatory Programme (GAPP)\n\nGMI describes this as a preparatory pathway for study at a University of Applied Sciences in Germany. It includes preparation at GMI and German language training.\n\nCheck the official page for the current structure, intake and application route.</string>
+    <string name="gufp_listing">GMI-UTP Foundation Programme (GUFP)\n\nFoundation in Engineering and Science, offered through the GMI and Universiti Teknologi PETRONAS partnership. GMI describes it as a one-year foundation programme.\n\nCheck the official page for the current structure, intake and application route.</string>
+    <string name="diploma_criteria">Diploma entry requirements\n\nFor engineering and engineering technology diplomas, GMI’s 2025 programme guide gives an SPM route: at least three credits including Mathematics, one Science/Technical/Vocational subject and one other subject, plus a pass in English.\n\nOther qualifications and programme-specific requirements exist. This screen does not decide eligibility. Open the current GMI diploma admissions page and its entry requirement document to confirm the course you want.</string>
+    <string name="gapp_criteria">GAPP entry requirements\n\nSponsored candidate (YTP MARA): GMI lists SPM grade A in English, Additional Mathematics, Physics, Chemistry and four other subjects.\n\nPrivate candidate: GMI lists SPM/IGCSE/O-Level or equivalent grade C in English, Mathematics, Additional Mathematics, Physics and Chemistry.\n\nConfirm the current criteria and sponsorship conditions on the official GMI page before applying.</string>
+    <string name="gufp_criteria">GUFP entry requirements\n\nSPM route: minimum grade C in Bahasa Melayu, Mathematics, English, Additional Mathematics, Physics and Chemistry.\n\nO-Level/IGCSE route: GMI lists at least five credits (grade C or 60% and above), including Mathematics, Physics, Chemistry, Additional Mathematics and one other subject.\n\nConfirm the current criteria on the official GMI page before applying.</string>
+    <string name="about_text">German-Malaysian Institute (GMI) was established in 1991 through cooperation between Malaysia and Germany. It offers diploma and pre-university programmes as well as technical training.\n\nGerman-Malaysian Institute\nJalan Ilmiah, Taman Universiti\n43000 Kajang, Selangor, Malaysia\n\nTelephone: +603-8921 9000\nEmail: marketing@gmi.edu.my</string>
+</resources>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/courses_title"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="#003B71"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/btnDiploma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/diploma_button"/>
+
+        <Button
+            android:id="@+id/btnGAPP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/gapp_button"/>
+
+        <Button
+            android:id="@+id/btnGUFP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/gufp_button"/>
+
+        <TextView
+            android:id="@+id/txtCourseList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/diploma_list"
+            android:textSize="18sp"
+            android:textColor="#333333"
+            android:paddingTop="24dp"
+            android:lineSpacingExtra="5dp"
+            android:textIsSelectable="true"/>
+
+        <Button
+            android:id="@+id/btnCourseEligibility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/view_entry_requirements"/>
+
+        <Button
+            android:id="@+id/btnCourseSource"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view_gmi_source"/>
+
+        <Button
+            android:id="@+id/btnApply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/apply_at_gmi"/>
+
+    </LinearLayout>
+</ScrollView>

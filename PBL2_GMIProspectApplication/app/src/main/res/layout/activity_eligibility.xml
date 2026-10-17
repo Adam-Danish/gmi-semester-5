@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eligibility Check"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Enter your SPM results. Tick a subject if you received a credit (C or better)." />
+
+        <EditText
+            android:id="@+id/inputCredits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Total number of SPM credits"
+            android:inputType="number" />
+
+        <CheckBox
+            android:id="@+id/checkSpm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="I passed SPM" />
+
+        <CheckBox
+            android:id="@+id/checkBm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bahasa Melayu credit" />
+
+        <CheckBox
+            android:id="@+id/checkEnglish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="English credit" />
+
+        <CheckBox
+            android:id="@+id/checkEnglishPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="English pass, but not credit" />
+
+        <CheckBox
+            android:id="@+id/checkMath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mathematics credit" />
+
+        <CheckBox
+            android:id="@+id/checkAddMath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Additional Mathematics credit" />
+
+        <CheckBox
+            android:id="@+id/checkPhysics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Physics credit" />
+
+        <CheckBox
+            android:id="@+id/checkChemistry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chemistry credit" />
+
+        <CheckBox
+            android:id="@+id/checkScience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Another Science / Technical / Vocational credit" />
+
+        <Button
+            android:id="@+id/btnCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Check eligibility" />
+
+        <TextView
+            android:id="@+id/txtEligibility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Your possible programmes will appear here."
+            android:textSize="18sp" />
+
+    </LinearLayout>
+</ScrollView>
