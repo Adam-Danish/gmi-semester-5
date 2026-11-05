@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Smart Trivia Hub</string>
+    <string name="brand_name">SMART TRIVIA / 0562</string>
+    <string name="course_label">Android Programming</string>
+
+    <!-- Registration -->
+    <string name="home_step">01 / Student registration</string>
+    <string name="home_title">Test what you know.</string>
+    <string name="home_description">Ten questions. One assessment. A clear review of everything you answered.</string>
+    <string name="home_section">Before you begin</string>
+    <string name="home_instruction">Enter your student details to begin the assessment.</string>
+
+    <string name="label_name">Full name</string>
+    <string name="hint_name">Your full name</string>
+    <string name="label_student_id">Student ID</string>
+    <string name="hint_student_id">Example: SWE24070384</string>
+    <string name="label_programme">Programme</string>
+    <string name="hint_programme">Diploma in Software Engineering</string>
+
+    <string name="btn_start">Begin assessment</string>
+    <string name="home_footer">10 multiple-choice questions · Live trivia API</string>
+
+    <string name="error_name">Enter a name with at least 2 characters.</string>
+    <string name="error_student_id">Use 4 to 20 letters, numbers, underscores or hyphens.</string>
+    <string name="error_programme">Enter your programme.</string>
+    <string name="registration_success">Registration complete.</string>
+    <string name="missing_student_data">Student information is missing.</string>
+
+    <!-- Quiz -->
+    <string name="quiz_step">02 / Live assessment</string>
+    <string name="quiz_title">Your questions.</string>
+    <string name="quiz_instruction">Select one answer for each question.</string>
+    <string name="question_position">%1$02d / %2$02d</string>
+    <string name="quiz_progress_default">01 / 10</string>
+    <string name="quiz_question_label">QUESTION</string>
+    <string name="category_default">General Knowledge</string>
+    <string name="category_difficulty">%1$s · %2$s</string>
+
+    <string name="loading_questions">Retrieving 10 questions from Open Trivia DB…</string>
+    <string name="error_network">Unable to load questions. Check your connection and try again.</string>
+    <string name="error_rate_limit">The API is receiving too many requests. Wait a few seconds, then retry.</string>
+    <string name="error_api_response">The API could not provide the requested questions.</string>
+    <string name="error_question_count">The API returned an incomplete set of questions.</string>
+    <string name="error_json">The response could not be processed.</string>
+    <string name="btn_retry">Retry questions</string>
+
+    <string name="option_a">Option A</string>
+    <string name="option_b">Option B</string>
+    <string name="option_c">Option C</string>
+    <string name="option_d">Option D</string>
+
+    <string name="feedback_correct">Correct answer.</string>
+    <string name="feedback_incorrect">Incorrect. The answer is %1$s.</string>
+    <string name="toast_correct">Correct answer</string>
+    <string name="toast_incorrect">Incorrect answer</string>
+    <string name="feedback_icon_desc">Answer feedback status</string>
+    <string name="btn_next">Next question</string>
+    <string name="btn_view_results">View results</string>
+
+    <!-- Results -->
+    <string name="result_step">03 / Assessment results</string>
+    <string name="result_title">Your results.</string>
+    <string name="result_subtitle">Assessment completed</string>
+
+    <string name="student_id_value">ID: %1$s</string>
+    <string name="programme_value">%1$s</string>
+
+    <string name="final_score_label">FINAL SCORE</string>
+    <string name="score_default">0/10</string>
+    <string name="score_value">%1$02d/%2$02d</string>
+    <string name="percentage_default">0%</string>
+    <string name="percentage_value">%1$d%%</string>
+
+    <string name="correct_count_default">Correct: 0</string>
+    <string name="correct_count_value">Correct: %1$d</string>
+    <string name="incorrect_count_default">Incorrect: 0</string>
+    <string name="incorrect_count_value">Incorrect: %1$d</string>
+
+    <string name="performance_excellent">Excellent. Strong understanding.</string>
+    <string name="performance_good">Good work. Keep practising.</string>
+    <string name="performance_average">You are making progress.</string>
+    <string name="performance_improve">Review the answers and try again.</string>
+
+    <string name="breakdown_title">Answer review</string>
+    <string name="breakdown_description">Every question, your selection, and the correct answer.</string>
+    <string name="review_question_default">01</string>
+    <string name="review_question_number">%1$02d</string>
+    <string name="question_placeholder">Question</string>
+
+    <string name="your_answer_default">Your answer</string>
+    <string name="your_answer_value">Your answer: %1$s</string>
+    <string name="correct_answer_default">Correct answer</string>
+    <string name="correct_answer_value">Correct answer: %1$s</string>
+
+    <string name="status_correct">CORRECT</string>
+    <string name="status_incorrect">INCORRECT</string>
+    <string name="btn_restart">Take another assessment</string>
+    <string name="error_no_result">No results were found.</string>
+
+</resources>

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="studentName"
+            type="String" />
+
+        <variable
+            name="questionText"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="24dp"
+                    app:layout_constraintWidth_max="660dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/brand_name"
+                        android:textColor="@color/ink"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-condensed" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/line" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="26dp"
+                        android:text="@string/quiz_step"
+                        android:textColor="@color/accent"
+                        android:textStyle="bold"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/quiz_title"
+                        android:textColor="@color/ink"
+                        android:textStyle="bold"
+                        android:textSize="38sp"
+                        android:fontFamily="sans-serif-condensed" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@{studentName}"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="15sp" />
+
+                    <ProgressBar
+                        android:id="@+id/progressLoading"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="55dp"
+                        android:indeterminateTint="@color/accent" />
+
+                    <TextView
+                        android:id="@+id/txtLoading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:text="@string/loading_questions"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="15sp"
+                        android:gravity="center" />
+
+                    <LinearLayout
+                        android:id="@+id/errorPanel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/txtError"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/error_network"
+                            android:textColor="@color/error"
+                            android:textSize="16sp" />
+
+                        <Button
+                            android:id="@+id/btnRetry"
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/bg_button_primary"
+                            android:backgroundTint="@null"
+                            android:text="@string/btn_retry"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/questionPanel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/txtProgress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/quiz_progress_default"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textColor="@color/ink" />
+
+                        <ProgressBar
+                            android:id="@+id/quizProgress"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:layout_marginTop="12dp"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressTint="@color/accent"
+                            android:progressBackgroundTint="@color/line" />
+
+                        <TextView
+                            android:id="@+id/txtCategory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="28dp"
+                            android:text="@string/category_default"
+                            android:textColor="@color/secondary_text"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/quiz_question_label"
+                            android:textColor="@color/accent"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txtQuestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@{questionText}"
+                            android:textColor="@color/ink"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="27sp"
+                            android:textStyle="bold"
+                            android:lineSpacingExtra="3dp" />
+
+                        <Button
+                            android:id="@+id/btnChoice0"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="56dp"
+                            android:layout_marginTop="26dp"
+                            android:padding="12dp"
+                            android:background="@drawable/bg_option"
+                            android:backgroundTint="@null"
+                            android:text="@string/option_a"
+                            android:textAllCaps="false"
+                            android:textColor="@color/ink"
+                            android:textSize="15sp" />
+
+                        <Button
+                            android:id="@+id/btnChoice1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="56dp"
+                            android:layout_marginTop="10dp"
+                            android:padding="12dp"
+                            android:background="@drawable/bg_option"
+                            android:backgroundTint="@null"
+                            android:text="@string/option_b"
+                            android:textAllCaps="false"
+                            android:textColor="@color/ink"
+                            android:textSize="15sp" />
+
+                        <Button
+                            android:id="@+id/btnChoice2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="56dp"
+                            android:layout_marginTop="10dp"
+                            android:padding="12dp"
+                            android:background="@drawable/bg_option"
+                            android:backgroundTint="@null"
+                            android:text="@string/option_c"
+                            android:textAllCaps="false"
+                            android:textColor="@color/ink"
+                            android:textSize="15sp" />
+
+                        <Button
+                            android:id="@+id/btnChoice3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="56dp"
+                            android:layout_marginTop="10dp"
+                            android:padding="12dp"
+                            android:background="@drawable/bg_option"
+                            android:backgroundTint="@null"
+                            android:text="@string/option_d"
+                            android:textAllCaps="false"
+                            android:textColor="@color/ink"
+                            android:textSize="15sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:id="@+id/imgFeedback"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:src="@drawable/ic_correct"
+                                android:contentDescription="@string/feedback_icon_desc"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/txtFeedback"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="12dp"
+                                android:text="@string/feedback_correct"
+                                android:textColor="@color/success"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/btnNext"
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:layout_marginTop="22dp"
+                            android:layout_marginBottom="30dp"
+                            android:background="@drawable/bg_button_primary"
+                            android:backgroundTint="@null"
+                            android:text="@string/btn_next"
+                            android:textAllCaps="false"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
