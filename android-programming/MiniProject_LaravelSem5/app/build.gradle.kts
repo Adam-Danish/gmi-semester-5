@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.exammarkcalculator"
+    namespace = "com.example.miniproject_laravelsem5"
 
     compileSdk {
         version = release(37)

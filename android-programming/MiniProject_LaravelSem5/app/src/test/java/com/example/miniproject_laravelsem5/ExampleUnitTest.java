@@ -2,16 +2,23 @@ package com.example.miniproject_laravelsem5;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
+import static org.junit.Assert.assertEquals;
+
 public class ExampleUnitTest {
     @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+    public void scoreCountsOnlyCorrectAnswers() {
+        ArrayList<String> choices = new ArrayList<>(Arrays.asList("A", "B", "C", "D"));
+        TriviaQuestion correct = new TriviaQuestion("Question 1", choices, 2);
+        TriviaQuestion incorrect = new TriviaQuestion("Question 2", choices, 2);
+        TriviaQuestion unanswered = new TriviaQuestion("Question 3", choices, 2);
+        correct.setSelectedIndex(2);
+        incorrect.setSelectedIndex(0);
+
+        assertEquals(1, TriviaQuestion.countCorrect(Arrays.asList(correct, incorrect, unanswered)));
+        assertEquals("A", incorrect.getSelectedAnswer());
+        assertEquals("C", incorrect.getCorrectAnswer());
     }
 }

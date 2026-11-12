@@ -2,14 +2,13 @@ package com.example.miniproject_laravelsem5;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TriviaQuestion implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private final String questionText;
-    private final String category;
-    private final String difficulty;
 
     private final ArrayList<String> choices;
     private final int correctIndex;
@@ -18,15 +17,11 @@ public class TriviaQuestion implements Serializable {
 
     public TriviaQuestion(
             String questionText,
-            String category,
-            String difficulty,
             ArrayList<String> choices,
             int correctIndex
     ) {
 
         this.questionText = questionText;
-        this.category = category;
-        this.difficulty = difficulty;
 
         this.choices = new ArrayList<>(choices);
         this.correctIndex = correctIndex;
@@ -34,14 +29,6 @@ public class TriviaQuestion implements Serializable {
 
     public String getQuestionText() {
         return questionText;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getDifficulty() {
-        return difficulty;
     }
 
     public ArrayList<String> getChoices() {
@@ -66,6 +53,16 @@ public class TriviaQuestion implements Serializable {
 
     public boolean isCorrect() {
         return selectedIndex == correctIndex;
+    }
+
+    static int countCorrect(List<TriviaQuestion> questions) {
+        int correct = 0;
+        for (TriviaQuestion question : questions) {
+            if (question.isCorrect()) {
+                correct++;
+            }
+        }
+        return correct;
     }
 
     public String getCorrectAnswer() {

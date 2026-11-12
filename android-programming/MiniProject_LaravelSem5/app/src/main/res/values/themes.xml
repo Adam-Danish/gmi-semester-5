@@ -29,7 +29,7 @@
 
         <!-- System Bars -->
         <item name="android:statusBarColor">@color/background</item>
-        <item name="android:navigationBarColor">@color/primary</item>
+        <item name="android:navigationBarColor">@color/background</item>
         <item name="android:windowLightStatusBar">true</item>
 
         <!-- Window Background -->

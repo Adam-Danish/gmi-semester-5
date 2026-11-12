@@ -14,272 +14,76 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ResultActivity extends AppCompatActivity {
-
     private static final String TAG = "ResultActivity";
-
-    public static final String EXTRA_QUESTIONS =
-            "com.example.miniproject_laravelsem5.QUESTIONS";
+    public static final String EXTRA_QUESTIONS = "com.example.miniproject_laravelsem5.QUESTIONS";
 
     private ActivityResultBinding binding;
-
-    private ArrayList<TriviaQuestion> questions =
-            new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
-
-        binding = ActivityResultBinding.inflate(
-                getLayoutInflater()
-        );
-
+        binding = ActivityResultBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        String studentName = getIntent().getStringExtra(
-                MainActivity.EXTRA_NAME
-        );
-
-        String studentId = getIntent().getStringExtra(
-                MainActivity.EXTRA_ID
-        );
-
-        String programme = getIntent().getStringExtra(
-                MainActivity.EXTRA_PROGRAMME
-        );
-
-        Serializable received =
-                getIntent().getSerializableExtra(
-                        EXTRA_QUESTIONS
-                );
-
-        if (!(received instanceof ArrayList)) {
-
-            Toast.makeText(
-                    this,
-                    R.string.error_no_result,
-                    Toast.LENGTH_SHORT
-            ).show();
-
+        String name = getIntent().getStringExtra(MainActivity.EXTRA_NAME);
+        String id = getIntent().getStringExtra(MainActivity.EXTRA_ID);
+        Serializable received = getIntent().getSerializableExtra(EXTRA_QUESTIONS);
+        if (name == null || id == null || !(received instanceof ArrayList) || ((ArrayList<?>) received).isEmpty()) {
+            Toast.makeText(this, R.string.result_no_data, Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
         @SuppressWarnings("unchecked")
-        ArrayList<TriviaQuestion> receivedQuestions =
-                (ArrayList<TriviaQuestion>) received;
-
-        questions = receivedQuestions;
-
-        if (questions.isEmpty()) {
-
-            Toast.makeText(
-                    this,
-                    R.string.error_no_result,
-                    Toast.LENGTH_SHORT
-            ).show();
-
+        ArrayList<TriviaQuestion> questions = (ArrayList<TriviaQuestion>) received;
+        binding.setStudentName(name);
+        binding.txtStudentId.setText(getString(R.string.result_student_id, id));
+        displayResults(questions);
+        binding.btnRestart.setOnClickListener(view -> {
+            binding.btnRestart.setEnabled(false);
+            Bundle student = new Bundle();
+            student.putString(MainActivity.EXTRA_NAME, name);
+            student.putString(MainActivity.EXTRA_ID, id);
+            startActivity(new Intent(this, QuizActivity.class).putExtras(student));
             finish();
-            return;
-        }
-
-        binding.setStudentName(studentName);
-
-        binding.txtStudentId.setText(
-                getString(
-                        R.string.student_id_value,
-                        studentId
-                )
-        );
-
-        binding.txtProgramme.setText(
-                getString(
-                        R.string.programme_value,
-                        programme
-                )
-        );
-
-        calculateAndDisplayResults();
-        createQuestionBreakdown();
-
-        binding.btnRestart.setOnClickListener(
-                view -> restartAssessment()
-        );
+        });
+        binding.btnHome.setOnClickListener(view -> {
+            Intent home = new Intent(this, MainActivity.class);
+            home.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(home);
+            finish();
+        });
     }
 
-    private void calculateAndDisplayResults() {
-
-        int correct = 0;
+    private void displayResults(ArrayList<TriviaQuestion> questions) {
         int total = questions.size();
-
-        for (TriviaQuestion question : questions) {
-
-            if (question.isCorrect()) {
-                correct++;
-            }
-        }
-
-        int incorrect = total - correct;
-
-        int percentage = Math.round(
-                correct * 100.0f / total
-        );
-
-        binding.txtScore.setText(
-                getString(
-                        R.string.score_value,
-                        correct,
-                        total
-                )
-        );
-
-        binding.txtPercentage.setText(
-                getString(
-                        R.string.percentage_value,
-                        percentage
-                )
-        );
-
-        binding.txtCorrectCount.setText(
-                getString(
-                        R.string.correct_count_value,
-                        correct
-                )
-        );
-
-        binding.txtIncorrectCount.setText(
-                getString(
-                        R.string.incorrect_count_value,
-                        incorrect
-                )
-        );
-
-        binding.resultProgress.setMax(100);
+        int correct = TriviaQuestion.countCorrect(questions);
+        int percentage = Math.round(correct * 100.0f / total);
+        int percentageColor = percentage >= 80 ? R.color.success
+                : percentage >= 50 ? R.color.on_surface : R.color.error;
+        binding.txtPercentage.setText(getString(R.string.result_percentage_format, percentage));
+        binding.txtPercentage.setTextColor(getColor(percentageColor));
+        binding.txtScore.setText(getString(R.string.result_score_format, correct, total));
+        binding.txtCorrectCount.setText(getString(R.string.result_correct_count, correct));
+        binding.txtIncorrectCount.setText(getString(R.string.result_incorrect_count, total - correct));
         binding.resultProgress.setProgress(percentage);
+        Log.d(TAG, "Correct=" + correct + " Incorrect=" + (total - correct) + " Percentage=" + percentage);
 
-        if (percentage >= 80) {
-
-            binding.txtPerformance.setText(
-                    R.string.performance_excellent
-            );
-
-        } else if (percentage >= 60) {
-
-            binding.txtPerformance.setText(
-                    R.string.performance_good
-            );
-
-        } else if (percentage >= 40) {
-
-            binding.txtPerformance.setText(
-                    R.string.performance_average
-            );
-
-        } else {
-
-            binding.txtPerformance.setText(
-                    R.string.performance_improve
-            );
+        for (int i = 0; i < total; i++) {
+            TriviaQuestion question = questions.get(i);
+            boolean isCorrect = question.isCorrect();
+            ItemResultBinding row = ItemResultBinding.inflate(getLayoutInflater(), binding.breakdownContainer, false);
+            row.txtItemNumber.setText(getString(R.string.result_question_number, i + 1));
+            row.txtItemQuestion.setText(question.getQuestionText());
+            row.txtYourAnswer.setText(getString(R.string.result_your_answer, question.getSelectedAnswer()));
+            row.txtCorrectAnswer.setText(getString(R.string.result_correct_answer, question.getCorrectAnswer()));
+            row.txtItemStatus.setText(isCorrect ? R.string.result_status_correct : R.string.result_status_incorrect);
+            row.txtItemStatus.setTextColor(getColor(isCorrect ? R.color.success : R.color.error));
+            row.imgItemStatus.setImageResource(isCorrect ? R.drawable.ic_correct : R.drawable.ic_incorrect);
+            row.imgItemStatus.setContentDescription(getString(isCorrect ? R.string.icon_correct : R.string.icon_incorrect));
+            binding.breakdownContainer.addView(row.getRoot());
         }
-
-        Log.d(
-                TAG,
-                "Correct=" + correct +
-                        " Incorrect=" + incorrect +
-                        " Percentage=" + percentage
-        );
-    }
-
-    private void createQuestionBreakdown() {
-
-        binding.breakdownContainer.removeAllViews();
-
-        for (int i = 0; i < questions.size(); i++) {
-
-            TriviaQuestion question =
-                    questions.get(i);
-
-            ItemResultBinding item =
-                    ItemResultBinding.inflate(
-                            getLayoutInflater(),
-                            binding.breakdownContainer,
-                            false
-                    );
-
-            item.txtItemNumber.setText(
-                    getString(
-                            R.string.review_question_number,
-                            i + 1
-                    )
-            );
-
-            item.txtItemQuestion.setText(
-                    question.getQuestionText()
-            );
-
-            item.txtYourAnswer.setText(
-                    getString(
-                            R.string.your_answer_value,
-                            question.getSelectedAnswer()
-                    )
-            );
-
-            item.txtCorrectAnswer.setText(
-                    getString(
-                            R.string.correct_answer_value,
-                            question.getCorrectAnswer()
-                    )
-            );
-
-            if (question.isCorrect()) {
-
-                item.imgItemStatus.setImageResource(
-                        R.drawable.ic_correct
-                );
-
-                item.txtItemStatus.setText(
-                        R.string.status_correct
-                );
-
-                item.txtItemStatus.setTextColor(
-                        getColor(R.color.success)
-                );
-
-            } else {
-
-                item.imgItemStatus.setImageResource(
-                        R.drawable.ic_incorrect
-                );
-
-                item.txtItemStatus.setText(
-                        R.string.status_incorrect
-                );
-
-                item.txtItemStatus.setTextColor(
-                        getColor(R.color.error)
-                );
-            }
-
-            binding.breakdownContainer.addView(
-                    item.getRoot()
-            );
-        }
-    }
-
-    private void restartAssessment() {
-
-        Intent intent = new Intent(
-                ResultActivity.this,
-                MainActivity.class
-        );
-
-        intent.addFlags(
-                Intent.FLAG_ACTIVITY_NEW_TASK |
-                        Intent.FLAG_ACTIVITY_CLEAR_TASK
-        );
-
-        startActivity(intent);
-        finish();
     }
 
     @Override
@@ -292,6 +96,7 @@ public class ResultActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume");
+        ScreenTheme.updateSystemBars(this);
     }
 
     @Override
@@ -316,6 +121,6 @@ public class ResultActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
-        binding = null;
     }
+
 }
