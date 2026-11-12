@@ -1,22 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.SmartTriviaHub"
-        parent="Theme.AppCompat.Light.NoActionBar">
+    <style
+        name="Base.Theme.ExamMarkCalculator"
+        parent="Theme.Material3.DayNight.NoActionBar">
 
-        <item name="colorPrimary">@color/accent</item>
-        <item name="colorPrimaryDark">@color/ink</item>
-        <item name="colorAccent">@color/accent</item>
+        <!-- Primary Colors -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorPrimaryContainer">@color/primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/on_primary_container</item>
 
+        <!-- Secondary Colors -->
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+
+        <!-- Background and Surface -->
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
+        <item name="colorOnBackground">@color/on_background</item>
+
+        <!-- Borders and Errors -->
+        <item name="colorOutline">@color/outline</item>
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">@color/on_error</item>
+
+        <!-- System Bars -->
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:navigationBarColor">@color/primary</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:statusBarColor">@color/white</item>
-        <item name="android:navigationBarColor">@color/white</item>
 
-        <item name="android:windowActionModeOverlay">true</item>
-        <item name="android:windowLightNavigationBar">true</item>
+        <!-- Window Background -->
+        <item name="android:windowBackground">@color/background</item>
 
-        <item name="android:windowBackground">@color/white</item>
+        <!-- Font -->
+        <item name="android:fontFamily">sans</item>
 
     </style>
+
+    <style
+        name="Theme.ExamMarkCalculator"
+        parent="Base.Theme.ExamMarkCalculator" />
 
 </resources>
