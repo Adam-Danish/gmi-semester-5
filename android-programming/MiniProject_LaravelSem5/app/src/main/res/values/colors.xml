@@ -1,67 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- Basic Colors -->
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-
-    <!-- Light Theme Colors -->
-    <color name="primary">#754C39</color>
-    <color name="on_primary">#FFFFFF</color>
-    <color name="primary_container">#EAD9CF</color>
-    <color name="on_primary_container">#402A1F</color>
-
-    <color name="secondary">#557660</color>
-    <color name="on_secondary">#FFFFFF</color>
-
     <color name="background">#FAF7F5</color>
-    <color name="on_background">#2C211C</color>
+    <color name="primary">#754C39</color>
+    <color name="white">#FFFFFF</color>
+    <color name="divider">#D5CCC7</color>
 
-    <color name="surface">#FFFDFB</color>
-    <color name="on_surface">#2C211C</color>
-
-    <color name="surface_variant">#EDE4DF</color>
-    <color name="on_surface_variant">#6E5C52</color>
-
-    <color name="outline">#8C786E</color>
-
-    <!-- Feedback Colors -->
     <color name="success">#256B46</color>
     <color name="error">#B3261E</color>
-    <color name="on_error">#FFFFFF</color>
 
-    <!-- Dark Theme Colors -->
-    <color name="dark_primary">#E5BAA2</color>
-    <color name="dark_on_primary">#442719</color>
-    <color name="dark_primary_container">#5F3D2E</color>
-    <color name="dark_on_primary_container">#F8DCCB</color>
-
-    <color name="dark_secondary">#B6D2BA</color>
-    <color name="dark_on_secondary">#23402C</color>
-
-    <color name="dark_background">#171311</color>
-    <color name="dark_on_background">#F1E6E0</color>
-
-    <color name="dark_surface">#201B19</color>
-    <color name="dark_on_surface">#F1E6E0</color>
-
-    <color name="dark_surface_variant">#473B36</color>
-    <color name="dark_on_surface_variant">#D6C4BA</color>
-
-    <color name="dark_outline">#95837A</color>
-
-    <color name="dark_success">#7DD4A5</color>
-    <color name="dark_error">#FFB4AB</color>
-    <color name="dark_on_error">#690005</color>
-
-    <color name="correct_surface">#EBF5EE</color>
-    <color name="incorrect_surface">#FCECE9</color>
-
-    <!-- Launcher artwork -->
     <color name="launcher_background">#3DDC84</color>
     <color name="launcher_grid">#33FFFFFF</color>
     <color name="launcher_shadow">#44000000</color>
-
-    <color name="dark_correct_surface">#22382D</color>
-    <color name="dark_incorrect_surface">#452824</color>
 </resources>

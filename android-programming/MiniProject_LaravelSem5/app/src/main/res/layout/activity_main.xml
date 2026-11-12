@@ -1,80 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data></data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent" android:layout_height="match_parent"
-        android:background="@color/background" android:fitsSystemWindows="true"
+    <data />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:descendantFocusability="beforeDescendants"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
         android:focusableInTouchMode="true">
 
-        <ScrollView
-            android:id="@+id/screenScroll" android:layout_width="0dp" android:layout_height="0dp"
-            android:fillViewport="true"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:padding="16dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintWidth_max="480dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Widget.Trivia.Card"
-                    android:layout_width="0dp" android:layout_height="wrap_content"
-                    app:layout_constraintWidth_max="520dp"
-                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
-                    <LinearLayout
-                        android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="24dp">
-                        <TextView
-                            style="@style/TextAppearance.Trivia.Label"
-                            android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:text="@string/app_name" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/app_name"
+                    android:textColor="@color/primary"
+                    android:textSize="16sp" />
 
-                        <TextView
-                            style="@style/TextAppearance.Trivia.Title"
-                            android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:text="@string/registration_title"
-                            android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="@string/registration_title"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-                        <TextView
-                            style="@style/TextAppearance.Trivia.Body"
-                            android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:text="@string/registration_subtitle"
-                            android:layout_marginTop="8dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:labelFor="@id/editName"
+                    android:text="@string/label_student_name" />
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/editNameField" style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                            android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp" android:hint="@string/label_student_name">
+                <EditText
+                    android:id="@+id/editName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName|textCapWords"
+                    android:maxLength="80"
+                    android:minHeight="48dp"
+                    android:nextFocusForward="@id/editStudentId"
+                    android:singleLine="true" />
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/editName" android:layout_width="match_parent" android:layout_height="wrap_content"
-                                android:minHeight="56dp" android:inputType="textPersonName|textCapWords" android:imeOptions="actionNext"
-                                android:singleLine="true" android:maxLength="80" />
-                        </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:labelFor="@id/editStudentId"
+                    android:text="@string/label_student_id" />
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/editStudentIdField" style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                            android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp" android:hint="@string/label_student_id">
+                <EditText
+                    android:id="@+id/editStudentId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapCharacters|textNoSuggestions"
+                    android:maxLength="20"
+                    android:minHeight="48dp"
+                    android:singleLine="true" />
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/editStudentId" android:layout_width="match_parent" android:layout_height="wrap_content"
-                                android:minHeight="56dp" android:inputType="textCapCharacters|textNoSuggestions" android:imeOptions="actionDone"
-                                android:singleLine="true" android:maxLength="20" />
-                        </com.google.android.material.textfield.TextInputLayout>
+                <Button
+                    android:id="@+id/btnStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/primary"
+                    android:minHeight="48dp"
+                    android:text="@string/button_start_quiz"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnStart" style="@style/Widget.Trivia.Primary"
-                            android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:text="@string/button_start_quiz"
-                            android:layout_marginTop="24dp" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

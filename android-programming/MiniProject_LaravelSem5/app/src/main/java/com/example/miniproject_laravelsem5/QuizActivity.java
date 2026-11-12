@@ -1,21 +1,17 @@
 package com.example.miniproject_laravelsem5;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.ViewCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.miniproject_laravelsem5.databinding.ActivityQuizBinding;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.snackbar.Snackbar;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class QuizActivity extends AppCompatActivity {
@@ -24,10 +20,8 @@ public class QuizActivity extends AppCompatActivity {
     private static final String STATE_INDEX = "saved_index";
 
     private ActivityQuizBinding binding;
-    private QuestionLoader loader;
+    private Button[] answerButtons;
     private ArrayList<TriviaQuestion> questions = new ArrayList<>();
-    private MaterialButton[] choiceButtons;
-    private Snackbar snackbar;
     private int currentIndex;
     private String studentName;
     private String studentId;
@@ -36,151 +30,146 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
+
         binding = ActivityQuizBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         studentName = getIntent().getStringExtra(MainActivity.EXTRA_NAME);
         studentId = getIntent().getStringExtra(MainActivity.EXTRA_ID);
+
         if (studentName == null || studentId == null) {
             Toast.makeText(this, R.string.missing_student_data, Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
-        binding.setStudentName(studentName);
-        choiceButtons = new MaterialButton[]{
-                binding.btnChoice0, binding.btnChoice1, binding.btnChoice2, binding.btnChoice3
+        answerButtons = new Button[]{
+                binding.btnChoice0,
+                binding.btnChoice1,
+                binding.btnChoice2,
+                binding.btnChoice3
         };
-        for (int i = 0; i < choiceButtons.length; i++) {
-            int selected = i;
-            choiceButtons[i].setOnClickListener(view -> submitAnswer(selected));
+
+        for (int i = 0; i < answerButtons.length; i++) {
+            int answerIndex = i;
+            answerButtons[i].setOnClickListener(view -> checkAnswer(answerIndex));
         }
-        binding.btnNext.setOnClickListener(view -> next());
-        binding.btnRetry.setOnClickListener(view -> loader.load());
+
+        binding.btnNext.setOnClickListener(view -> nextQuestion());
 
         if (savedInstanceState != null) {
-            Serializable saved = savedInstanceState.getSerializable(STATE_QUESTIONS);
-            if (saved instanceof ArrayList) {
-                @SuppressWarnings("unchecked")
-                ArrayList<TriviaQuestion> restored = (ArrayList<TriviaQuestion>) saved;
-                questions = restored;
+            @SuppressWarnings("unchecked")
+            ArrayList<TriviaQuestion> savedQuestions =
+                    (ArrayList<TriviaQuestion>) savedInstanceState.getSerializable(STATE_QUESTIONS);
+
+            if (savedQuestions != null && !savedQuestions.isEmpty()) {
+                questions = savedQuestions;
+                currentIndex = savedInstanceState.getInt(STATE_INDEX);
+                showQuestion();
+                return;
             }
-            currentIndex = savedInstanceState.getInt(STATE_INDEX);
-        }
-        if (!questions.isEmpty()) {
-            currentIndex = Math.max(0, Math.min(currentIndex, questions.size() - 1));
-            displayQuestion();
-            return;
         }
 
-        loader = new ViewModelProvider(this).get(QuestionLoader.class);
-        loader.error().observe(this, this::displayLoadState);
-        loader.questions().observe(this, loaded -> {
-            questions = loaded;
-            displayQuestion();
+        QuestionLoader loader = new ViewModelProvider(this).get(QuestionLoader.class);
+
+        binding.btnRetry.setOnClickListener(view -> loader.load());
+        loader.error().observe(this, this::showLoadingOrError);
+        loader.questions().observe(this, loadedQuestions -> {
+            questions = loadedQuestions;
+            showQuestion();
         });
+
         loader.loadIfNeeded();
     }
 
-    private void displayLoadState(int messageId) {
+    private void showLoadingOrError(int messageId) {
         if (!questions.isEmpty()) {
             return;
         }
-        boolean loading = messageId == 0;
-        binding.loadingPanel.setVisibility(loading ? View.VISIBLE : View.GONE);
-        binding.errorPanel.setVisibility(loading ? View.GONE : View.VISIBLE);
-        if (!loading) {
-            binding.txtError.setText(messageId);
-        }
+
+        binding.txtLoadStatus.setText(messageId == 0 ? R.string.quiz_loading : messageId);
+        binding.btnRetry.setVisibility(messageId == 0 ? View.GONE : View.VISIBLE);
     }
 
-    private void displayQuestion() {
+    private void showQuestion() {
         TriviaQuestion question = questions.get(currentIndex);
         boolean answered = question.isAnswered();
 
-        binding.loadingPanel.setVisibility(View.GONE);
-        binding.errorPanel.setVisibility(View.GONE);
+        binding.txtLoadStatus.setVisibility(View.GONE);
+        binding.btnRetry.setVisibility(View.GONE);
         binding.questionPanel.setVisibility(View.VISIBLE);
+
         binding.setQuestionText(question.getQuestionText());
-        binding.txtProgress.setText(getString(R.string.quiz_question_progress, currentIndex + 1, questions.size()));
+        binding.txtProgress.setText(getString(
+                R.string.quiz_question_progress, currentIndex + 1, questions.size()));
         binding.txtCurrentScore.setText(getString(
                 R.string.quiz_current_score, TriviaQuestion.countCorrect(questions), questions.size()));
-        binding.quizProgress.setProgress((currentIndex + 1) * 100 / questions.size());
 
-        for (int i = 0; i < choiceButtons.length; i++) {
-            MaterialButton button = choiceButtons[i];
-            boolean selected = i == question.getSelectedIndex();
-            boolean correct = answered && i == question.getCorrectIndex();
-            boolean incorrect = selected && !correct;
-            int background = correct ? R.color.correct_surface : incorrect ? R.color.incorrect_surface : R.color.surface;
-            int foreground = correct ? R.color.success : incorrect ? R.color.error : R.color.on_surface;
-            int border = correct || incorrect ? foreground : R.color.outline;
-            button.setText(question.getChoices().get(i));
-            button.setSelected(selected);
-            button.setClickable(!answered);
-            button.setBackgroundTintList(ColorStateList.valueOf(getColor(background)));
-            button.setStrokeColor(ColorStateList.valueOf(getColor(border)));
-            button.setTextColor(getColor(foreground));
-            int status = correct ? R.string.result_status_correct : R.string.result_status_incorrect;
-            ViewCompat.setStateDescription(button, selected
-                    ? getString(R.string.answer_selected_status, getString(status))
-                    : correct ? getString(status) : null);
+        for (int i = 0; i < answerButtons.length; i++) {
+            answerButtons[i].setText(question.getChoices().get(i));
+            answerButtons[i].setEnabled(!answered);
         }
 
         binding.btnNext.setEnabled(answered);
         binding.btnNext.setText(currentIndex == questions.size() - 1
                 ? R.string.button_finish_quiz : R.string.button_next_question);
+
         binding.feedbackPanel.setVisibility(answered ? View.VISIBLE : View.GONE);
+
         if (answered) {
-            boolean correct = question.isCorrect();
-            binding.imgFeedback.setImageResource(correct ? R.drawable.ic_correct : R.drawable.ic_incorrect);
-            binding.imgFeedback.setContentDescription(getString(correct ? R.string.icon_correct : R.string.icon_incorrect));
-            binding.txtFeedback.setText(correct ? getString(R.string.feedback_correct)
-                    : getString(R.string.feedback_incorrect, question.getCorrectAnswer()));
-            binding.txtFeedback.setTextColor(getColor(correct ? R.color.success : R.color.error));
+            showFeedback(question);
         }
     }
 
-    private void submitAnswer(int selectedIndex) {
+    private void checkAnswer(int answerIndex) {
         TriviaQuestion question = questions.get(currentIndex);
+
         if (question.isAnswered()) {
             return;
         }
-        question.setSelectedIndex(selectedIndex);
-        Log.d(TAG, "Question " + (currentIndex + 1) + " correct=" + question.isCorrect());
-        displayQuestion();
-        binding.feedbackPanel.setAlpha(0f);
-        binding.feedbackPanel.animate().alpha(1f).setDuration(180).start();
-        binding.screenScroll.post(() -> {
-            if (!isFinishing() && !isDestroyed()) {
-                binding.screenScroll.fullScroll(View.FOCUS_DOWN);
-            }
-        });
-        snackbar = Snackbar.make(binding.getRoot(), question.isCorrect()
-                ? R.string.result_status_correct : R.string.result_status_incorrect, Snackbar.LENGTH_SHORT);
-        snackbar.setAnchorView(binding.btnNext);
-        snackbar.show();
+
+        question.setSelectedIndex(answerIndex);
+        showQuestion();
+
+        int message = question.isCorrect() ? R.string.toast_correct : R.string.toast_incorrect;
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    private void next() {
+    private void showFeedback(TriviaQuestion question) {
+        if (question.isCorrect()) {
+            binding.imgFeedback.setImageResource(R.drawable.ic_correct);
+            binding.imgFeedback.setContentDescription(getString(R.string.icon_correct));
+            binding.txtFeedback.setText(R.string.feedback_correct);
+        } else {
+            binding.imgFeedback.setImageResource(R.drawable.ic_incorrect);
+            binding.imgFeedback.setContentDescription(getString(R.string.icon_incorrect));
+            binding.txtFeedback.setText(getString(
+                    R.string.feedback_incorrect, question.getCorrectAnswer()));
+        }
+    }
+
+    private void nextQuestion() {
         if (questions.isEmpty() || !questions.get(currentIndex).isAnswered()) {
             return;
         }
-        if (snackbar != null) {
-            snackbar.dismiss();
-        }
+
         if (currentIndex < questions.size() - 1) {
             currentIndex++;
-            displayQuestion();
+            showQuestion();
             binding.screenScroll.scrollTo(0, 0);
             return;
         }
-        binding.btnNext.setEnabled(false);
+
         Bundle result = new Bundle();
         result.putString(MainActivity.EXTRA_NAME, studentName);
         result.putString(MainActivity.EXTRA_ID, studentId);
         result.putSerializable(ResultActivity.EXTRA_QUESTIONS, questions);
-        startActivity(new Intent(this, ResultActivity.class).putExtras(result));
+
+        Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtras(result);
+
+        binding.btnNext.setEnabled(false);
+        startActivity(intent);
         finish();
     }
 
@@ -201,7 +190,6 @@ public class QuizActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume");
-        ScreenTheme.updateSystemBars(this);
     }
 
     @Override
@@ -226,12 +214,5 @@ public class QuizActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
-        if (snackbar != null) {
-            snackbar.dismiss();
-        }
-        if (isFinishing() && loader != null) {
-            loader.cancel();
-        }
     }
-
 }

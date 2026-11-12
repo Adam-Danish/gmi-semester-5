@@ -2,23 +2,17 @@
 <resources>
     <string name="app_name">Smart Learning &amp; Trivia Assessment Hub</string>
 
-    <!-- Registration -->
     <string name="registration_title">Student Registration</string>
-    <string name="registration_subtitle">Enter your name and student ID to begin.</string>
     <string name="label_student_name">Student Name</string>
     <string name="label_student_id">Student ID</string>
-    <string name="hint_student_name">Enter your full name</string>
-    <string name="hint_student_id">Enter your student ID</string>
     <string name="button_start_quiz">Start Quiz</string>
-    <string name="quiz_total_questions">10 multiple-choice questions</string>
     <string name="error_empty_name">Please enter your name.</string>
     <string name="error_empty_id">Please enter your student ID.</string>
-    <string name="error_invalid_name">Enter a name of at least two characters using letters and standard name punctuation.</string>
+    <string name="error_invalid_name">Enter a name with at least two characters. Use letters and standard name punctuation.</string>
     <string name="error_invalid_id">Enter 4 to 20 letters, numbers, hyphens or underscores.</string>
     <string name="missing_student_data">Student details are missing. Please register again.</string>
 
-    <!-- Quiz -->
-    <string name="quiz_title">Trivia Assessment</string>
+    <string name="quiz_title">Trivia Quiz</string>
     <string name="quiz_question_progress">Question %1$d of %2$d</string>
     <string name="quiz_current_score">Score: %1$d / %2$d</string>
     <string name="quiz_loading">Loading questions…</string>
@@ -29,17 +23,18 @@
     <string name="feedback_incorrect">Incorrect. Correct answer: %1$s</string>
     <string name="toast_correct">Correct!</string>
     <string name="toast_incorrect">Incorrect.</string>
-    <string name="error_network">Could not load questions. Check your connection and try again.</string>
-    <string name="error_api_response">The trivia service could not provide questions. Please try again.</string>
-    <string name="error_rate_limit">Too many requests. Wait at least five seconds, then try again.</string>
-    <string name="error_question_count">The trivia service did not return 10 questions. Please try again.</string>
-    <string name="error_json">The trivia service returned an invalid response. Please try again.</string>
+    <string name="icon_correct">Correct answer indicator</string>
+    <string name="icon_incorrect">Incorrect answer indicator</string>
+    <string name="error_network">Could not load questions. Try again.</string>
+    <string name="error_no_connection">Check your internet connection and try again.</string>
+    <string name="error_timeout">The request timed out. Try again.</string>
+    <string name="error_rate_limit">Too many requests. Wait at least five seconds and try again.</string>
+    <string name="error_api_response">The trivia service could not provide questions. Try again.</string>
+    <string name="error_question_count">The trivia service did not return 10 questions. Try again.</string>
+    <string name="error_json">The trivia service returned an invalid response. Try again.</string>
 
-    <!-- Results -->
-    <string name="result_title">Assessment Results</string>
+    <string name="result_title">Quiz Results</string>
     <string name="result_student_id">Student ID: %1$s</string>
-    <string name="result_final_score">Final Score</string>
-    <string name="result_score_format">%1$d / %2$d</string>
     <string name="result_percentage_format">%1$d%%</string>
     <string name="result_correct_count">Correct: %1$d</string>
     <string name="result_incorrect_count">Incorrect: %1$d</string>
@@ -50,11 +45,5 @@
     <string name="result_status_correct">Correct</string>
     <string name="result_status_incorrect">Incorrect</string>
     <string name="result_no_data">No assessment results are available.</string>
-    <string name="button_restart_quiz">Restart Assessment</string>
-    <string name="button_back_home">Back to Home</string>
-    <string name="error_no_connection">No connection to the trivia service. Check your internet and try again.</string>
-    <string name="error_timeout">The request timed out. Try again when your connection improves.</string>
-    <string name="answer_selected_status">Your selection. %1$s</string>
-    <string name="icon_correct">Correct answer indicator</string>
-    <string name="icon_incorrect">Incorrect answer indicator</string>
+    <string name="button_restart_quiz">Restart Quiz</string>
 </resources>
